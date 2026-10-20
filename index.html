@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Tip Calculator & Currency Converter web application. Calculate tips, split bills easily, and convert between 20 global currencies with live multi-source exchange rates.">
+    <meta name="keywords" content="tip calculator, currency converter, bill splitter, exchange rates, finance web app, splitly">
+    <meta name="author" content="Internship Project 1">
+    <title>Splitly | Tip Calculator & Currency Converter</title>
+
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Floating Background Ambient Glow Orbs -->
+    <div class="ambient-glow glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow glow-2" aria-hidden="true"></div>
+    <div class="ambient-glow glow-3" aria-hidden="true"></div>
+
+    <div class="app-wrapper">
+        <!-- App Header with User Template Branding & Theme Toggle -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>Splitly <span>& FX</span></h1>
+                    <p class="brand-subtitle">Project 1 • Tip & Currency Hub</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button type="button" id="theme-toggle" class="icon-button" aria-label="Toggle dark/light theme"
+                    title="Toggle Theme">
+                    <!-- Sun icon for light mode -->
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                    </svg>
+                    <!-- Moon icon for dark mode -->
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs from User Template -->
+        <nav class="nav-tabs" role="tablist" aria-label="Calculator Modes">
+            <button role="tab" id="tab-tip" class="tab-btn active" aria-selected="true"
+                aria-controls="panel-tip-calculator">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                    <line x1="8" y1="6" x2="16" y2="6" />
+                    <line x1="16" y1="14" x2="16" y2="18" />
+                    <path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01" />
+                </svg>
+                Tip Calculator
+            </button>
+            <button role="tab" id="tab-currency" class="tab-btn" aria-selected="false"
+                aria-controls="panel-currency-converter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m16 3 4 4-4 4" />
+                    <path d="M20 7H4" />
+                    <path d="m8 21-4-4 4-4" />
+                    <path d="M4 17h16" />
+                </svg>
+                Currency Converter
+            </button>
+            <button role="tab" id="tab-devtools" class="tab-btn" aria-selected="false"
+                aria-controls="panel-devtools-helper">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="4 17 10 11 4 5" />
+                    <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+                DevTools Guide
+            </button>
+        </nav>
+
+        <!-- Main Tab Panels -->
+        <main>
+            <!-- ====================================================================
+                 TAB 1: TIP CALCULATOR (Splitly Content + User Template UI)
+                 ==================================================================== -->
+            <section id="panel-tip-calculator" class="tab-panel active" role="tabpanel"
+                aria-labelledby="tab-tip">
+                <div class="calculator-grid">
+                    <!-- Left Column: Inputs Form Card -->
+                    <div class="card">
+                        <div class="card-header-row">
+                            <span class="step-badge">01</span>
+                            <h2>Tip Calculator</h2>
+                        </div>
+                        <p class="card-subtitle">Your bill, your tip, your preferred currency.</p>
+
+                        <!-- Bill Currency -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="tipCurrency">Bill currency</label>
+                                <span class="badge">20 Currencies</span>
+                            </div>
+                            <div class="select-wrapper">
+                                <select id="tipCurrency" class="styled-select" aria-label="Select bill currency"></select>
+                            </div>
+                        </div>
+
+                        <!-- Bill Amount -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="bill">Bill amount</label>
+                                <div class="quick-presets-row">
+                                    <button type="button" class="preset-chip" data-add-bill="100">+100</button>
+                                    <button type="button" class="preset-chip" data-add-bill="500">+500</button>
+                                    <button type="button" class="preset-chip" data-add-bill="1000">+1000</button>
+                                </div>
+                            </div>
+                            <div class="input-with-symbol">
+                                <span class="currency-symbol" id="billSymbol">₹</span>
+                                <input id="bill" type="number" value="1200" min="0" step="any" placeholder="0.00" />
+                            </div>
+                        </div>
+
+                        <!-- Tip Percentage Chips -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label>Tip percentage</label>
+                            </div>
+                            <div class="chips-grid" role="group" aria-label="Tip Percentage Quick Options">
+                                <button type="button" class="chip-btn" data-tip="5">5%</button>
+                                <button type="button" class="chip-btn active" data-tip="10">10%</button>
+                                <button type="button" class="chip-btn" data-tip="15">15%</button>
+                                <button type="button" class="chip-btn" data-tip="20">20%</button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Tip & People Stepper -->
+                        <div class="twocol">
+                            <div class="form-group">
+                                <label for="tip">Custom tip (%)</label>
+                                <input id="tip" type="number" value="10" min="0" max="100" step="any" placeholder="10" />
+                            </div>
+                            <div class="form-group">
+                                <label for="people">People</label>
+                                <div class="stepper-input">
+                                    <button type="button" class="stepper-btn stepper-down" id="people-minus" aria-label="Decrease people">−</button>
+                                    <input id="people" type="number" value="2" min="1" step="1" />
+                                    <button type="button" class="stepper-btn stepper-up" id="people-plus" aria-label="Increase people">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons-row">
+                            <button type="button" class="btn btn-primary" id="calculateTip">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                                    <line x1="8" y1="6" x2="16" y2="6" />
+                                    <line x1="16" y1="14" x2="16" y2="18" />
+                                </svg>
+                                Calculate Tip
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="resetTip">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                    <path d="M3 3v5h5" />
+                                </svg>
+                                Reset
+                            </button>
+                        </div>
+
+                        <!-- Error Message Alert -->
+                        <div class="note-error" id="tipError" role="alert"></div>
+                    </div>
+
+                    <!-- Right Column: Results Showcase Card -->
+                    <div class="card results-card" aria-live="polite">
+                        <div class="results-header-tag">Per Person Share</div>
+                        <div class="hero-amount">
+                            <span id="perPerson">—</span>
+                            <button type="button" class="copy-icon-btn" id="copy-per-person" title="Copy per person share" aria-label="Copy per person share">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="results-breakdown">
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Tip amount</span>
+                                <div class="breakdown-val-group">
+                                    <span class="breakdown-val" id="tipAmount">—</span>
+                                    <button type="button" class="copy-icon-btn" id="copy-tip-amount" title="Copy tip amount" aria-label="Copy tip amount">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Total bill</span>
+                                <div class="breakdown-val-group">
+                                    <span class="breakdown-val" id="total">—</span>
+                                    <button type="button" class="copy-icon-btn" id="copy-total-bill" title="Copy total bill" aria-label="Copy total bill">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Bill per person</span>
+                                <span class="breakdown-val" id="billPerPerson">—</span>
+                            </div>
+
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Tip per person</span>
+                                <span class="breakdown-val" id="tipPerPerson">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 TAB 2: CURRENCY CONVERTER (Splitly Content + User Template UI)
+                 ==================================================================== -->
+            <section id="panel-currency-converter" class="tab-panel" role="tabpanel"
+                aria-labelledby="tab-currency">
+                <div class="calculator-grid">
+                    <!-- Left Column: Converter Controls -->
+                    <div class="card">
+                        <div class="card-header-row">
+                            <span class="step-badge">02</span>
+                            <h2>Currency Converter</h2>
+                        </div>
+                        <p class="card-subtitle">20 currencies · Multiple exchange-rate sources · Rate date shown.</p>
+
+                        <!-- Amount Input with Quick Presets -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="amount">Amount</label>
+                                <div class="quick-presets-row">
+                                    <button type="button" class="preset-chip" data-set-amount="10000">10K</button>
+                                    <button type="button" class="preset-chip" data-set-amount="100000">100K</button>
+                                    <button type="button" class="preset-chip" data-set-amount="500000">500K</button>
+                                </div>
+                            </div>
+                            <input id="amount" type="number" value="500000" min="0" step="any" placeholder="0.00" />
+                        </div>
+
+                        <!-- From and To Selectors -->
+                        <div class="twocol">
+                            <div class="form-group">
+                                <label for="from">From</label>
+                                <div class="select-wrapper">
+                                    <select id="from" class="styled-select" aria-label="From Currency"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="to">To</label>
+                                <div class="select-wrapper">
+                                    <select id="to" class="styled-select" aria-label="To Currency"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Central Swap Button -->
+                        <div class="swaprow">
+                            <button type="button" id="swap" class="swap-btn" aria-label="Swap from and to currencies"
+                                title="Swap Currencies">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m16 3 4 4-4 4" />
+                                    <path d="M20 7H4" />
+                                    <path d="m8 21-4-4 4-4" />
+                                    <path d="M4 17h16" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Action Buttons: Convert & Refresh -->
+                        <div class="action-buttons-row">
+                            <button type="button" id="convert" class="btn btn-primary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m21.5 2-5 5" />
+                                    <path d="M22 12A10 10 0 1 1 12 2" />
+                                </svg>
+                                Convert Currency
+                            </button>
+                            <button type="button" id="refresh" class="btn btn-secondary" title="Reload live rates">
+                                <svg id="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                    <path d="M3 3v5h5" />
+                                    <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                                    <path d="M16 21h5v-5" />
+                                </svg>
+                                Refresh rates
+                            </button>
+                        </div>
+
+                        <!-- Status Indicator Bar -->
+                        <div id="status" class="status-bar" role="status">
+                            <span class="pulse-dot"></span> Loading exchange rates…
+                        </div>
+
+                        <!-- Backup Manual Rate Accordion -->
+                        <details class="manual-panel" id="manualPanel">
+                            <summary>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
+                                Backup: Enter a known exchange rate manually
+                            </summary>
+                            <p>
+                                Only use this if online services are blocked. Enter how much
+                                <strong>1 <span id="manualFrom">INR</span></strong> equals in <strong><span id="manualTo">USD</span></strong>.
+                                The output will be labeled as manually entered, not live.
+                            </p>
+                            <div class="form-group" style="margin-bottom: 10px;">
+                                <label for="manualRate">
+                                    1 <span id="manualFromLabel">From</span> = how many <span id="manualToLabel">To</span>?
+                                </label>
+                                <input id="manualRate" type="number" min="0" step="any" placeholder="Enter a verified rate" />
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="manualConvert" style="width: 100%;">
+                                Use manual rate
+                            </button>
+                        </details>
+
+                        <p class="help-text">
+                            Rate source and publication date are displayed with each online conversion. Rates are indicative; your bank
+                            may charge a spread. Online rates require internet access.
+                        </p>
+                    </div>
+
+                    <!-- Right Column: Conversion Showcase & Comparison -->
+                    <div class="card results-card" aria-live="polite">
+                        <div class="results-header-tag">Live Conversion Result</div>
+
+                        <div class="currency-result-box">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.82rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700;">Converted Amount</span>
+                                <button type="button" class="copy-icon-btn" id="copy-converted" title="Copy converted amount" aria-label="Copy converted amount">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="converted" class="currency-result-val">Loading…</div>
+                            <div id="detail" class="currency-detail-rate">Please wait for live rate data.</div>
+                        </div>
+
+                        <!-- Popular benchmarks table -->
+                        <div class="results-breakdown" style="margin-top: 18px;">
+                            <div style="font-size: 0.84rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Top Benchmark Rates (Base: 1 USD)</div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">🇮🇳 Indian Rupee (INR)</span>
+                                <span class="breakdown-val" id="bench-inr">—</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">🇪🇺 Euro (EUR)</span>
+                                <span class="breakdown-val" id="bench-eur">—</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">🇬🇧 British Pound (GBP)</span>
+                                <span class="breakdown-val" id="bench-gbp">—</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">🇦🇪 UAE Dirham (AED)</span>
+                                <span class="breakdown-val" id="bench-aed">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 TAB 3: DEVTOOLS CONSOLE GUIDE (From User Template)
+                 ==================================================================== -->
+            <section id="panel-devtools-helper" class="tab-panel" role="tabpanel"
+                aria-labelledby="tab-devtools">
+                <div class="card">
+                    <div class="card-header-row">
+                        <span class="step-badge">03</span>
+                        <h2>Developer Tools Console Integration</h2>
+                    </div>
+                    <p class="card-subtitle">Week 1 Synthesis: Deep Chrome DevTools console debugging, breakpoints & formatted inspection tables.</p>
+
+                    <div class="devtools-steps">
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <div class="step-info">
+                                <h4>Open Chrome DevTools</h4>
+                                <p>Press <kbd>F12</kbd> or <kbd>Ctrl+Shift+I</kbd> (Mac: <kbd>Cmd+Option+I</kbd>) and navigate to the <strong>Console</strong> tab.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <div class="step-info">
+                                <h4>Inspect Interactive State in Console</h4>
+                                <p>Type <code>window.debugSplitly()</code> in the console and press <kbd>Enter</kbd> to inspect active state variables and current metrics.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <div class="step-info">
+                                <h4>Real-Time Trace & Calculation Tables</h4>
+                                <p>Every calculation triggers a clean <code>console.table</code> logging the arithmetic breakdown and rate sources.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Console Log Mirror in UI -->
+                    <div class="live-console-box">
+                        <div class="console-box-header">
+                            <span>Live DevTools Output Simulator</span>
+                            <button type="button" id="btn-trigger-test-log" class="preset-chip" style="color: var(--accent-cyan);">Run Test Log</button>
+                        </div>
+                        <pre class="console-screen" id="console-screen-output">// Chrome DevTools console ready.
+// Try typing: window.debugSplitly() in your DevTools console!
+// Splitly Studio Initialized successfully.</pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification Component -->
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <!-- Application Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
