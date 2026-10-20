@@ -166,7 +166,19 @@ if ($("to")) $("to").value = "USD";
 function updateBillPrefix() {
   const c = $("tipCurrency") ? $("tipCurrency").value : "INR";
   const sym = currencySymbols[c] || c;
-  if ($("billSymbol")) $("billSymbol").textContent = sym;
+  if ($("billSymbol")) {
+    $("billSymbol").textContent = sym;
+  }
+  const billInput = $("bill");
+  if (billInput) {
+    if (sym.length >= 3) {
+      billInput.style.paddingLeft = "64px";
+    } else if (sym.length === 2) {
+      billInput.style.paddingLeft = "54px";
+    } else {
+      billInput.style.paddingLeft = "48px";
+    }
+  }
 }
 if ($("tipCurrency")) {
   $("tipCurrency").addEventListener("change", updateBillPrefix);
