@@ -520,44 +520,6 @@ label {
     color: #0f172a;
 }
 
-/* Input with Symbol Prefix */
-.input-with-symbol {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.currency-symbol {
-    position: absolute;
-    left: 16px;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--accent-cyan);
-    pointer-events: none;
-    user-select: none;
-    transition: transform var(--transition-bounce);
-}
-
-.input-with-symbol input {
-    width: 100%;
-    padding: 14px 16px 14px 44px;
-    background: var(--bg-input);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-size: 1.35rem;
-    font-weight: 800;
-    font-family: var(--font-heading);
-    transition: all var(--transition-fast);
-}
-
-.input-with-symbol input:focus {
-    outline: none;
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
-    background: var(--bg-input-focus);
-}
-
 /* Standard text/number input */
 input[type="number"],
 input[type="text"] {
@@ -576,6 +538,48 @@ input:focus {
     outline: none;
     border-color: var(--border-focus);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    background: var(--bg-input-focus);
+}
+
+/* Input with Symbol Prefix (Must override standard input padding) */
+.input-with-symbol {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+    line-height: 1;
+}
+
+.input-with-symbol input[type="number"],
+.input-with-symbol input {
+    width: 100%;
+    padding: 14px 16px 14px 48px !important;
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    transition: all var(--transition-fast);
+}
+
+.input-with-symbol input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
     background: var(--bg-input-focus);
 }
 
